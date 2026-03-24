@@ -89,7 +89,7 @@ function typeName() {
   }
 }
 
-// ❤️ Shayari (slow typing ~3 min)
+// ❤️ Shayari (visible + smooth typing)
 let msg = `Dear Friend ❤️
 
 Zindagi me kuch log dil ke bahut kareeb ho jaate hain,
@@ -106,12 +106,23 @@ Tu hamesha muskurata rahe 😊
 🎂 Happy Birthday Rahit 🎉`;
 
 let j = 0;
+
 function typeMessage() {
-  if (j < msg.length) {
-    document.getElementById("message").innerHTML += msg.charAt(j);
-    j++;
-    setTimeout(typeMessage, 800);
+  let speed = 50;
+
+  function type() {
+    if (j < msg.length) {
+      document.getElementById("message").innerHTML += msg.charAt(j);
+      j++;
+      
+      // thoda thoda slow hoga (smooth feel)
+      speed = speed + 1;
+
+      setTimeout(type, speed);
+    }
   }
+
+  type();
 }
 </script>
 
