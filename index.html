@@ -7,7 +7,6 @@ body {
   text-align: center;
   background: black;
   color: white;
-  overflow: hidden;
   font-family: Arial;
 }
 
@@ -16,8 +15,6 @@ body {
   cursor: pointer;
   margin-top: 100px;
   animation: bounce 1s infinite;
-  position: relative;
-  z-index: 10;
 }
 
 @keyframes bounce {
@@ -48,13 +45,6 @@ body {
   margin-left: auto;
   margin-right: auto;
 }
-
-canvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-}
 </style>
 </head>
 
@@ -73,8 +63,6 @@ canvas {
 
 <div id="message"></div>
 
-<canvas id="fireworks"></canvas>
-
 <audio id="music" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
 
 <script>
@@ -88,11 +76,6 @@ function openGift() {
 
   typeName();
   typeMessage();
-
-  // fireworks 3 sec baad start
-  setTimeout(() => {
-    startFireworks();
-  }, 3000);
 }
 
 // 🎉 Name typing
@@ -106,7 +89,7 @@ function typeName() {
   }
 }
 
-// ❤️ Shayari (3 minute typing)
+// ❤️ Shayari (slow typing ~3 min)
 let msg = `Dear Friend ❤️
 
 Zindagi me kuch log dil ke bahut kareeb ho jaate hain,
@@ -127,57 +110,8 @@ function typeMessage() {
   if (j < msg.length) {
     document.getElementById("message").innerHTML += msg.charAt(j);
     j++;
-    setTimeout(typeMessage, 800); // slow typing (approx 3 min)
+    setTimeout(typeMessage, 800);
   }
-}
-
-// 🎆 Fireworks
-const canvas = document.getElementById("fireworks");
-const ctx = canvas.getContext("2d");
-
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-let particles = [];
-let fireworkInterval;
-
-function createFirework() {
-  for (let i = 0; i < 80; i++) {
-    particles.push({
-      x: canvas.width / 2,
-      y: canvas.height / 2,
-      speedX: (Math.random() - 0.5) * 5,
-      speedY: (Math.random() - 0.5) * 5,
-      life: 100
-    });
-  }
-}
-
-function startFireworks() {
-  fireworkInterval = setInterval(createFirework, 1200);
-
-  setTimeout(() => {
-    clearInterval(fireworkInterval);
-  }, 300000); // 5 minutes
-  animate();
-}
-
-function animate() {
-  ctx.fillStyle = "rgba(0,0,0,0.2)";
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-  particles.forEach((p, i) => {
-    p.x += p.speedX;
-    p.y += p.speedY;
-    p.life--;
-
-    ctx.fillStyle = "hsl(" + Math.random()*360 + ",100%,50%)";
-    ctx.fillRect(p.x, p.y, 3, 3);
-
-    if (p.life <= 0) particles.splice(i, 1);
-  });
-
-  requestAnimationFrame(animate);
 }
 </script>
 
