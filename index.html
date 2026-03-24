@@ -75,7 +75,7 @@ function openGift() {
   document.getElementById("music").play();
 
   typeName();
-  typeMessage();
+  typeMessage(); // turant start
 }
 
 // 🎉 Name typing
@@ -85,11 +85,11 @@ function typeName() {
   if (i < nameText.length) {
     document.getElementById("name").innerHTML += nameText.charAt(i);
     i++;
-    setTimeout(typeName, 100);
+    setTimeout(typeName, 80); // fast
   }
 }
 
-// ❤️ Shayari (visible + smooth typing)
+// ❤️ Shayari (FAST + smooth)
 let msg = `Dear Friend ❤️
 
 Zindagi me kuch log dil ke bahut kareeb ho jaate hain,
@@ -108,20 +108,13 @@ Tu hamesha muskurata rahe 😊
 let j = 0;
 
 function typeMessage() {
-  let speed = 50;
-
   function type() {
     if (j < msg.length) {
       document.getElementById("message").innerHTML += msg.charAt(j);
       j++;
-      
-      // thoda thoda slow hoga (smooth feel)
-      speed = speed + 1;
-
-      setTimeout(type, speed);
+      setTimeout(type, 30); // 🔥 fast typing
     }
   }
-
   type();
 }
 </script>
