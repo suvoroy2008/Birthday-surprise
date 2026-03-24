@@ -76,12 +76,13 @@ canvas {
 function openGift() {
   document.getElementById("gift").style.display = "none";
   document.getElementById("cake").style.display = "block";
-  document.getElementById("name").style.display = "block";
   document.getElementById("message").style.display = "block";
   document.getElementById("music").play();
-  startFireworks();
-  typeName();
-  typeMessage();
+
+  // 3 second baad fireworks start hoga
+  setTimeout(() => {
+    startFireworks();
+  }, 3000);
 }
 
 // Typing Name Animation
