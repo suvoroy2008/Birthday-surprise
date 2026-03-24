@@ -16,6 +16,8 @@ body {
   cursor: pointer;
   margin-top: 100px;
   animation: bounce 1s infinite;
+  position: relative;
+  z-index: 10;
 }
 
 @keyframes bounce {
@@ -23,13 +25,13 @@ body {
   50% {transform: translateY(-20px);}
 }
 
-#cake, #message, #name {
+#name, #cake, #message {
   display: none;
 }
 
 #name {
   font-size: 40px;
-  margin-top: 30px;
+  margin-top: 20px;
   color: cyan;
   text-shadow: 0 0 10px cyan, 0 0 20px cyan;
 }
@@ -42,6 +44,9 @@ body {
   font-size: 22px;
   margin-top: 20px;
   padding: 10px;
+  max-width: 90%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 canvas {
@@ -75,51 +80,58 @@ canvas {
 <script>
 function openGift() {
   document.getElementById("gift").style.display = "none";
+  document.getElementById("name").style.display = "block";
   document.getElementById("cake").style.display = "block";
   document.getElementById("message").style.display = "block";
+
   document.getElementById("music").play();
 
-  // 3 second baad fireworks start hoga
+  typeName();
+  typeMessage();
+
+  // fireworks 3 sec baad start
   setTimeout(() => {
     startFireworks();
   }, 3000);
 }
 
-// Typing Name Animation
-let nameText = "🎉 Rahit 🎉";
+// 🎉 Name typing
+let nameText = "🎉 Happy Birthday Rahit 🎉";
 let i = 0;
 function typeName() {
   if (i < nameText.length) {
     document.getElementById("name").innerHTML += nameText.charAt(i);
     i++;
-    setTimeout(typeName, 150);
+    setTimeout(typeName, 100);
   }
 }
 
-// Simple Emotional Shayari
-let msg = `Happy Birthday Dear Friend ❤️
+// ❤️ Shayari (3 minute typing)
+let msg = `Dear Friend ❤️
 
-Zindagi ke safar me kuch log khaas ban jaate hain,
+Zindagi me kuch log dil ke bahut kareeb ho jaate hain,
 Tu unme se ek hai 🙂
 
-Har khushi mile tujhe,
-Aur tera har din special rahe ✨
+Har din khushiyon se bhara rahe,
+Aur tera har sapna pura ho ✨
 
 Chahe baat ho ya na ho,
-Par meri taraf se hamesha dua rahegi 🙏
+Par meri dua hamesha tere saath rahe 🙏
 
-🎂 Happy Birthday 🎉`;
+Tu hamesha muskurata rahe 😊
+
+🎂 Happy Birthday Rahit 🎉`;
 
 let j = 0;
 function typeMessage() {
   if (j < msg.length) {
     document.getElementById("message").innerHTML += msg.charAt(j);
     j++;
-    setTimeout(typeMessage, 40);
+    setTimeout(typeMessage, 800); // slow typing (approx 3 min)
   }
 }
 
-// Fireworks
+// 🎆 Fireworks
 const canvas = document.getElementById("fireworks");
 const ctx = canvas.getContext("2d");
 
@@ -127,21 +139,26 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 let particles = [];
+let fireworkInterval;
 
 function createFirework() {
-  for (let i = 0; i < 100; i++) {
+  for (let i = 0; i < 80; i++) {
     particles.push({
       x: canvas.width / 2,
       y: canvas.height / 2,
-      speedX: (Math.random() - 0.5) * 6,
-      speedY: (Math.random() - 0.5) * 6,
+      speedX: (Math.random() - 0.5) * 5,
+      speedY: (Math.random() - 0.5) * 5,
       life: 100
     });
   }
 }
 
 function startFireworks() {
-  setInterval(createFirework, 1500);
+  fireworkInterval = setInterval(createFirework, 1200);
+
+  setTimeout(() => {
+    clearInterval(fireworkInterval);
+  }, 300000); // 5 minutes
   animate();
 }
 
