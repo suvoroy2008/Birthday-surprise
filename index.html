@@ -9,7 +9,6 @@ body {
   background: black;
   color: white;
   font-family: Arial;
-  overflow: hidden;
 }
 
 /* Gift */
@@ -59,7 +58,7 @@ body {
   margin-top: 20px;
 }
 
-/* Ending text */
+/* Ending */
 #end {
   font-size: 28px;
   color: red;
@@ -72,6 +71,7 @@ body {
   to {opacity: 1;}
 }
 </style>
+
 </head>
 
 <body>
@@ -147,13 +147,13 @@ function typeMessage() {
   type();
 }
 
-// 📸 Images (YAHAN LINK DAAL)
+// 📸 Converted image links
 let images = [
-  "IMG_20250520_133554.jpg",
-  "FB_IMG_1773926696914.jpg",
-  "IMG-20250615-WA0000.jpg",
-  "IMG-20250814-WA0004.jpg",
-  "IMG-20231008-WA0012.jpg"
+  "https://drive.google.com/uc?export=view&id=1p2mP4s8JilgFiLiyg8ljMyu7Rc_CrOmI",
+  "https://drive.google.com/uc?export=view&id=1p2mP4s8JilgFiLiyg8ljMyu7Rc_CrOmI",
+  "https://drive.google.com/uc?export=view&id=1bm1cilgQZER2a6Un0dcHljCwREglgLC8",
+  "https://drive.google.com/uc?export=view&id=1NEPUoxcc7rOASQ8OXPkYMhR4oH1AkAjW",
+  "https://drive.google.com/uc?export=view&id=1_U5ZFDJUB74uOw54AirtuYc66B8aJ-l0"
 ];
 
 let index = 0;
@@ -164,7 +164,7 @@ function startSlideshow() {
   function changeImage() {
     img.src = images[index];
 
-    // Agar last photo hai
+    // Last photo pe ending
     if (index === images.length - 1) {
       setTimeout(() => {
         document.getElementById("end").style.display = "block";
