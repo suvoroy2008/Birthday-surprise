@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
 
-<!-- ✅ Emoji Fix -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -13,8 +12,6 @@ body{
   text-align:center;
   background: linear-gradient(120deg, #000428, #004e92);
   color:white;
-
-  /* ✅ Emoji Support Font */
   font-family: Arial, "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
 }
 
@@ -40,14 +37,14 @@ img{
   border-radius:20px;
   margin-top:20px;
   box-shadow:0 0 20px cyan;
-  transition:0.5s;
 }
 
 /* ❤️ Message */
 p{
   font-size:20px;
   margin:20px;
-  line-height:1.6;
+  line-height:1.7;
+  white-space:pre-line;
 }
 </style>
 
@@ -61,21 +58,22 @@ p{
 
 <div id="main">
 
-<h1>🎉 Happy Birthday Rahit 🎉</h1>
+<h1>🎉 Happy Birthday Rahit 🎂</h1>
 
 <img id="photo" src="https://i.ibb.co/spTTKr00/photo1.jpg">
 
 <p id="msg"></p>
 
-<button onclick="playMusic()">▶️ Play Music 🎵</button>
-
 </div>
 
-<audio id="music" src="https://cdn.pixabay.com/audio/2022/10/25/audio_946b6f3f4e.mp3"></audio>
+<!-- 🎵 AUTO MUSIC -->
+<audio id="music" loop>
+  <source src="https://cdn.pixabay.com/audio/2022/10/25/audio_946b6f3f4e.mp3" type="audio/mpeg">
+</audio>
 
 <script>
 
-// 📸 Image Links
+// 📸 Image links
 let images = [
 "https://i.ibb.co/spTTKr00/photo1.jpg",
 "https://i.ibb.co/YF0B5rvf/photo2.jpg",
@@ -83,10 +81,20 @@ let images = [
 "https://i.ibb.co/h12xh6SW/photo4.jpg"
 ];
 
-// 🎁 Open Gift
+// 🎁 Gift click
 function openGift(){
   document.getElementById("gift").style.display="none";
   document.getElementById("main").style.display="block";
+
+  let music = document.getElementById("music");
+
+  // 🔥 Auto music play
+  music.play().catch(() => {
+    document.body.addEventListener("click", () => {
+      music.play();
+    }, { once: true });
+  });
+
   startSlideshow();
   typeMessage();
 }
@@ -100,18 +108,16 @@ function startSlideshow(){
   },2000);
 }
 
-// ❤️ Typing Message
-let text = `Dear Friend ❤️
+// ❤️ NEW MESSAGE (Typing Effect)
+let text = `Happy Birthday Rahit 🎂
 
-Zindagi me kuch log dil ke bahut kareeb ho jaate hain,
-aur tu unme se ek hai 🙂
+Dear Friend, zindagi me kuch log dil ke bahut kareeb ho jaate hain… aur tu unme se ek hai ❤️ Shayad ye message unexpected ho, par dil ne aaj bhi tujhe wish karne se nahi roka.
 
-Har din tere liye khushiyon se bhara ho,
-aur tera har sapna zarur pura ho ✨
+Tu sirf dost nahi tha, meri aadat jaisa tha… isliye aaj bhi sab thoda adhura lagta hai. Jo bhi hua uska dukh hai, par humari yaadein usse zyada important hain 🙂
 
-Tu hamesha muskurata rahe 😊
+Har din tere liye khushiyon se bhara ho, tera har sapna pura ho… tu hamesha muskurata rahe ✨ Agar kabhi mauka mile, to main phir se wahi dosti jeena chahunga.
 
-🎂 Happy Birthday Rahit 🎉`;
+Happy Birthday ❤️`;
 
 let j=0;
 function typeMessage(){
@@ -119,15 +125,10 @@ function typeMessage(){
     if(j<text.length){
       document.getElementById("msg").innerHTML += text.charAt(j);
       j++;
-      setTimeout(type,30);
+      setTimeout(type,25);
     }
   }
   type();
-}
-
-// 🎵 Music
-function playMusic(){
-  document.getElementById("music").play();
 }
 
 </script>
