@@ -9,9 +9,37 @@ body {
   background: black;
   color: white;
   font-family: Arial;
+  overflow: hidden;
 }
 
-/* Gift */
+/* ⭐ Stars background */
+.stars {
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.stars::after {
+  content: "";
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: white;
+  box-shadow: 
+  50px 100px white, 200px 300px white, 400px 150px white,
+  600px 250px white, 800px 400px white, 1000px 200px white;
+  animation: twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle {
+  from {opacity: 0.3;}
+  to {opacity: 1;}
+}
+
+/* 🎁 Gift */
 #gift {
   font-size: 80px;
   cursor: pointer;
@@ -24,46 +52,31 @@ body {
   50% {transform: translateY(-20px);}
 }
 
-#name, #cake, #message, #photoBox, #end {
+/* 🎉 Sections */
+#name, #cake, #message {
   display: none;
 }
 
-/* Name */
 #name {
   font-size: 40px;
-  color: cyan;
-  text-shadow: 0 0 10px cyan;
-}
-
-/* Slideshow */
-#photoBox {
   margin-top: 20px;
+  color: cyan;
+  text-shadow: 0 0 10px cyan, 0 0 20px cyan;
 }
 
-#photoBox img {
-  width: 220px;
-  border-radius: 15px;
-  box-shadow: 0 0 20px white;
-  animation: zoom 2s;
+#cake {
+  margin-top: 20px;
+  animation: fadeIn 2s;
 }
 
-@keyframes zoom {
-  from {transform: scale(0.8);}
-  to {transform: scale(1);}
-}
-
-/* Message */
 #message {
   font-size: 22px;
   margin-top: 20px;
-}
-
-/* Ending */
-#end {
-  font-size: 28px;
-  color: red;
-  margin-top: 20px;
-  animation: fadeIn 3s;
+  padding: 10px;
+  max-width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  animation: fadeIn 2s;
 }
 
 @keyframes fadeIn {
@@ -71,10 +84,11 @@ body {
   to {opacity: 1;}
 }
 </style>
-
 </head>
 
 <body>
+
+<div class="stars"></div>
 
 <h1>Click the Gift 🎁</h1>
 
@@ -82,25 +96,23 @@ body {
 
 <div id="name"></div>
 
-<div id="photoBox">
-  <img id="photo" src="">
-</div>
-
 <div id="cake">
   <h2>🎂 Happy Birthday 🎉</h2>
+  <div style="font-size:60px;">🎂 🕯️</div>
 </div>
 
 <div id="message"></div>
 
-<div id="end"></div>
-
+<!-- 🎵 Music -->
 <audio id="music" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
+
+<!-- 🔊 Typing sound -->
+<audio id="typeSound" src="https://www.soundjay.com/button/sounds/button-16.mp3"></audio>
 
 <script>
 function openGift() {
   document.getElementById("gift").style.display = "none";
   document.getElementById("name").style.display = "block";
-  document.getElementById("photoBox").style.display = "block";
   document.getElementById("cake").style.display = "block";
   document.getElementById("message").style.display = "block";
 
@@ -108,7 +120,6 @@ function openGift() {
 
   typeName();
   typeMessage();
-  startSlideshow();
 }
 
 // 🎉 Name typing
@@ -131,51 +142,29 @@ Tu unme se ek hai 🙂
 Har din khushiyon se bhara rahe,
 Aur tera har sapna pura ho ✨
 
-Tu hamesha khush rahe 😊
+Chahe baat ho ya na ho,
+Par meri dua hamesha tere saath rahe 🙏
+
+Tu hamesha muskurata rahe 😊
 
 🎂 Happy Birthday Rahit 🎉`;
 
 let j = 0;
+
 function typeMessage() {
   function type() {
     if (j < msg.length) {
       document.getElementById("message").innerHTML += msg.charAt(j);
       j++;
+
+      // typing sound
+      document.getElementById("typeSound").currentTime = 0;
+      document.getElementById("typeSound").play();
+
       setTimeout(type, 30);
     }
   }
   type();
-}
-
-// 📸 TERE REAL PHOTOS
-  <img src="images/IMG-20231008-WA0012.jpg" alt="Photo 1" />
-<img src="images/IMG-20250615-WA0000.jpg" alt="Photo 2" />
-<img src="images/IMG_20250417_113016.jpg" alt="Photo 3" />
-<img src="images/IMG_20250508_143014.jpg" alt="Photo 4" />
-<img src="images/file_00000000f3fc71fabad60a9fab0c04b6.png" alt="Photo 5" />
-
-let index = 0;
-
-function startSlideshow() {
-  let img = document.getElementById("photo");
-
-  function changeImage() {
-    img.src = images[index];
-
-    // Last photo pe ending
-    if (index === images.length - 1) {
-      setTimeout(() => {
-        document.getElementById("end").style.display = "block";
-        document.getElementById("end").innerHTML = "I miss you bro ❤️";
-      }, 1500);
-    }
-
-    index = (index + 1) % images.length;
-
-    setTimeout(changeImage, 2000);
-  }
-
-  changeImage();
 }
 </script>
 
