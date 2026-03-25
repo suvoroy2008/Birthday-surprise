@@ -6,18 +6,34 @@
 
 <style>
 body {
-  margin:0; text-align:center;
+  margin:0;
+  text-align:center;
   background: radial-gradient(circle, #000428, #004e92);
-  color:white; font-family:Arial;
+  color:white;
+  font-family:Arial;
 }
 
 /* 🎁 Gift */
-#gift { font-size:80px; margin-top:100px; cursor:pointer; animation:bounce 1s infinite; }
-@keyframes bounce {50%{transform:translateY(-20px);}}
+#gift {
+  font-size:80px;
+  margin-top:100px;
+  cursor:pointer;
+  animation:bounce 1s infinite;
+}
+@keyframes bounce {
+  50%{transform:translateY(-20px);}
+}
 
 /* Sections */
-.section { display:none; margin-top:20px; animation:fade 1s; }
-@keyframes fade {from{opacity:0;} to{opacity:1;}}
+.section {
+  display:none;
+  margin-top:20px;
+  animation:fade 1s;
+}
+@keyframes fade {
+  from{opacity:0;}
+  to{opacity:1;}
+}
 
 /* Slideshow */
 #slider img {
@@ -29,7 +45,8 @@ body {
 /* Fireworks */
 .firework {
   position:fixed;
-  width:5px; height:5px;
+  width:5px;
+  height:5px;
   background:white;
   animation:explode 1s ease-out infinite;
 }
@@ -43,6 +60,7 @@ body {
 <body>
 
 <h1>Click the Gift 🎁</h1>
+
 <div id="gift" onclick="openGift()">🎁</div>
 
 <div id="main" class="section">
@@ -61,19 +79,21 @@ Har sapna tera pura ho ✨<br><br>
 
 <!-- 📸 Slideshow -->
 <div id="slider">
-<img id="slide" src="https://picsum.photos/300/200?1">
+<img id="slide" src="IMG-20231008-WA0012.jpg">
 </div>
 
 <br>
 
-<!-- 🎵 Music button -->
+<!-- 🎵 Music Button -->
 <button onclick="playMusic()">▶️ Play Music 🎵</button>
 
 </div>
 
-<audio id="music" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" loop></audio>
+<!-- 🎵 Music -->
+<audio id="music" src="music.mp3" loop></audio>
 
 <script>
+
 function openGift(){
   document.getElementById("gift").style.display="none";
   document.getElementById("main").style.display="block";
@@ -81,7 +101,7 @@ function openGift(){
   startSlideshow();
 }
 
-// 🎂 Candle blow
+// 🎂 Candle
 function blowCandle(){
   document.getElementById("cake").innerHTML="🎂✨ Candles blown!";
 }
@@ -91,12 +111,15 @@ function playMusic(){
   document.getElementById("music").play();
 }
 
-// 📸 Slideshow
+// ✅ FIXED IMAGES (tumhare folder ke hisaab se)
 let images = [
-"https://picsum.photos/300/200?1",
-"https://picsum.photos/300/200?2",
-"https://picsum.photos/300/200?3"
+"IMG-20250920_203308.jpg",
+"IMG-20221118-WA0000.jpg",
+"IMG-20231008-WA0012.jpg",
+"IMG-20250615-WA0000.jpg",
+"file_00000000f3fc71fabad60a9fab0c04b6.png"
 ];
+
 let i=0;
 function startSlideshow(){
   setInterval(()=>{
@@ -116,6 +139,7 @@ function startFireworks(){
     setTimeout(()=>fw.remove(),1000);
   },300);
 }
+
 </script>
 
 </body>
