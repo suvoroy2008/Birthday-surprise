@@ -1,15 +1,17 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<meta charset="UTF-8">
 <title>Birthday Surprise 🎉</title>
-
 <style>
 body {
+  margin: 0;
+  padding: 0;
   text-align: center;
   background: black;
   color: white;
-  font-family: Arial;
-  overflow: hidden;
+  font-family: Arial, sans-serif;
+  overflow-x: hidden;
 }
 
 /* ⭐ Stars background */
@@ -29,8 +31,8 @@ body {
   height: 2px;
   background: white;
   box-shadow: 
-  50px 100px white, 200px 300px white, 400px 150px white,
-  600px 250px white, 800px 400px white, 1000px 200px white;
+    50px 100px white, 200px 300px white, 400px 150px white,
+    600px 250px white, 800px 400px white, 1000px 200px white;
   animation: twinkle 2s infinite alternate;
 }
 
@@ -54,7 +56,12 @@ body {
 
 /* 🎉 Sections */
 #name, #cake, #message {
-  display: none;
+  opacity: 0;
+  transition: opacity 2s;
+}
+
+.show {
+  opacity: 1;
 }
 
 #name {
@@ -66,7 +73,7 @@ body {
 
 #cake {
   margin-top: 20px;
-  animation: fadeIn 2s;
+  font-size: 50px;
 }
 
 #message {
@@ -76,12 +83,13 @@ body {
   max-width: 90%;
   margin-left: auto;
   margin-right: auto;
-  animation: fadeIn 2s;
+  line-height: 1.5;
 }
 
-@keyframes fadeIn {
-  from {opacity: 0;}
-  to {opacity: 1;}
+/* Buttons hover effect (optional) */
+#gift:hover {
+  transform: scale(1.2);
+  transition: transform 0.3s;
 }
 </style>
 </head>
@@ -96,10 +104,7 @@ body {
 
 <div id="name"></div>
 
-<div id="cake">
-  <h2>🎂 Happy Birthday 🎉</h2>
-  <div style="font-size:60px;">🎂 🕯️</div>
-</div>
+<div id="cake">🎂 Happy Birthday 🎉</div>
 
 <div id="message"></div>
 
@@ -111,13 +116,19 @@ body {
 
 <script>
 function openGift() {
+  // Hide gift
   document.getElementById("gift").style.display = "none";
-  document.getElementById("name").style.display = "block";
-  document.getElementById("cake").style.display = "block";
-  document.getElementById("message").style.display = "block";
 
-  document.getElementById("music").play();
+  // Show name, cake, message
+  document.getElementById("name").classList.add("show");
+  document.getElementById("cake").classList.add("show");
+  document.getElementById("message").classList.add("show");
 
+  // Play music with promise
+  const music = document.getElementById("music");
+  music.play().catch(e => console.log("Audio play error:", e));
+
+  // Start typing name & message
   typeName();
   typeMessage();
 }
@@ -133,7 +144,7 @@ function typeName() {
   }
 }
 
-// ❤️ Shayari
+// ❤️ Birthday message typing
 let msg = `Dear Friend ❤️
 
 Zindagi me kuch log dil ke bahut kareeb ho jaate hain,
@@ -150,16 +161,15 @@ Tu hamesha muskurata rahe 😊
 🎂 Happy Birthday Rahit 🎉`;
 
 let j = 0;
-
 function typeMessage() {
   function type() {
     if (j < msg.length) {
       document.getElementById("message").innerHTML += msg.charAt(j);
       j++;
 
-      // typing sound
-      document.getElementById("typeSound").currentTime = 0;
-      document.getElementById("typeSound").play();
+      // Play short typing sound without blocking
+      let sound = document.getElementById("typeSound").cloneNode();
+      sound.play();
 
       setTimeout(type, 30);
     }
