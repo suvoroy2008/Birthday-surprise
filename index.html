@@ -26,11 +26,16 @@ body {
 #gift:hover { transform:scale(1.2); transition:0.3s; }
 
 /* Sections */
-.section { opacity:0; transition: opacity 1.5s; margin-top:20px; }
+.section { opacity:0; transform:translateY(30px); transition: opacity 1s, transform 1s; margin-top:20px; }
 #name { font-size:40px; color:cyan; text-shadow:0 0 10px cyan,0 0 20px cyan; }
 #cake { font-size:50px; color:orange; }
 #message { font-size:22px; color:lightyellow; max-width:90%; margin:20px auto; line-height:1.6; text-align:center; }
-.show { opacity:1; }
+
+/* Animate class */
+.show {
+  opacity:1;
+  transform:translateY(0);
+}
 </style>
 </head>
 <body>
@@ -54,7 +59,7 @@ Muskurata rahe tu hamesha 😊<br><br>
 🎂 Happy Birthday Rahit 🎉
 </div>
 
-<!-- 🎵 Happy Birthday song free hosted link -->
+<!-- Happy Birthday song -->
 <audio id="music" src="https://cdn.pixabay.com/audio/2022/03/15/audio_5b30f51be6.mp3"></audio>
 
 <script>
@@ -64,21 +69,18 @@ function openGift() {
   const cake = document.getElementById("cake");
   const message = document.getElementById("message");
 
-  // Fade out gift
+  // Gift fade out
   gift.style.transition="opacity 0.5s";
   gift.style.opacity=0;
+  setTimeout(()=>{ gift.style.display="none"; }, 500);
 
-  // Show sections with staggered animation
-  setTimeout(()=>{
-    gift.style.display="none";
-    name.classList.add("show");
-    setTimeout(()=>{ cake.classList.add("show"); }, 800);
-    setTimeout(()=>{ message.classList.add("show"); }, 1600);
-  }, 500);
+  // Animate sections staggered
+  setTimeout(()=>{ name.classList.add("show"); }, 600);
+  setTimeout(()=>{ cake.classList.add("show"); }, 1200);
+  setTimeout(()=>{ message.classList.add("show"); }, 1800);
 
-  // Play Happy Birthday song
-  const music = document.getElementById("music");
-  music.play().catch(e=>console.log("Audio play error:", e));
+  // Play Happy Birthday music
+  document.getElementById("music").play().catch(e=>console.log("Audio error", e));
 }
 </script>
 </body>
