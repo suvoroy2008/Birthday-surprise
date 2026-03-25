@@ -18,28 +18,21 @@ body {
 .stars {
   width: 100%;
   height: 100%;
-  background: transparent;
   position: fixed;
   top: 0;
   left: 0;
+  background: transparent;
 }
-
 .stars::after {
   content: "";
   position: absolute;
   width: 2px;
   height: 2px;
   background: white;
-  box-shadow: 
-    50px 100px white, 200px 300px white, 400px 150px white,
-    600px 250px white, 800px 400px white, 1000px 200px white;
+  box-shadow: 50px 100px white, 200px 300px white, 400px 150px white, 600px 250px white, 800px 400px white, 1000px 200px white;
   animation: twinkle 2s infinite alternate;
 }
-
-@keyframes twinkle {
-  from {opacity: 0.3;}
-  to {opacity: 1;}
-}
+@keyframes twinkle { from {opacity: 0.3;} to {opacity:1;} }
 
 /* 🎁 Gift */
 #gift {
@@ -48,133 +41,50 @@ body {
   margin-top: 100px;
   animation: bounce 1s infinite;
 }
+@keyframes bounce { 0%,100% {transform: translateY(0);} 50% {transform: translateY(-20px);} }
+#gift:hover { transform: scale(1.2); transition: 0.3s; }
 
-@keyframes bounce {
-  0%,100% {transform: translateY(0);}
-  50% {transform: translateY(-20px);}
-}
-
-/* 🎉 Sections */
+/* Sections */
 #name, #cake, #message {
   opacity: 0;
-  transition: opacity 2s;
+  transition: opacity 1.5s;
 }
+.show { opacity: 1; }
 
-.show {
-  opacity: 1;
-}
-
-#name {
-  font-size: 40px;
-  margin-top: 20px;
-  color: cyan;
-  text-shadow: 0 0 10px cyan, 0 0 20px cyan;
-}
-
-#cake {
-  margin-top: 20px;
-  font-size: 50px;
-}
-
-#message {
-  font-size: 22px;
-  margin-top: 20px;
-  padding: 10px;
-  max-width: 90%;
-  margin-left: auto;
-  margin-right: auto;
-  line-height: 1.5;
-}
-
-/* Buttons hover effect (optional) */
-#gift:hover {
-  transform: scale(1.2);
-  transition: transform 0.3s;
-}
+#name { font-size: 40px; margin-top: 20px; color: cyan; text-shadow: 0 0 10px cyan, 0 0 20px cyan; }
+#cake { margin-top: 20px; font-size: 50px; }
+#message { font-size: 22px; margin-top: 20px; padding: 10px; max-width: 90%; margin-left:auto; margin-right:auto; line-height:1.5; }
 </style>
 </head>
-
 <body>
 
 <div class="stars"></div>
 
 <h1>Click the Gift 🎁</h1>
-
 <div id="gift" onclick="openGift()">🎁</div>
 
-<div id="name"></div>
-
+<div id="name">🎉 Happy Birthday Rahit 🎉</div>
 <div id="cake">🎂 Happy Birthday 🎉</div>
+<div id="message">Dear Friend ❤️<br><br>Zindagi me kuch log dil ke bahut kareeb ho jaate hain,<br>Tu unme se ek hai 🙂<br><br>Har din khushiyon se bhara rahe,<br>Aur tera har sapna pura ho ✨<br><br>Chahe baat ho ya na ho,<br>Par meri dua hamesha tere saath rahe 🙏<br><br>Tu hamesha muskurata rahe 😊<br><br>🎂 Happy Birthday Rahit 🎉</div>
 
-<div id="message"></div>
-
-<!-- 🎵 Music -->
 <audio id="music" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
-
-<!-- 🔊 Typing sound -->
 <audio id="typeSound" src="https://www.soundjay.com/button/sounds/button-16.mp3"></audio>
 
 <script>
 function openGift() {
-  // Hide gift
-  document.getElementById("gift").style.display = "none";
+  // hide gift (fade out)
+  document.getElementById("gift").style.transition = "opacity 0.5s";
+  document.getElementById("gift").style.opacity = 0;
+  setTimeout(() => { document.getElementById("gift").style.display = "none"; }, 500);
 
-  // Show name, cake, message
+  // show name, cake, message
   document.getElementById("name").classList.add("show");
   document.getElementById("cake").classList.add("show");
   document.getElementById("message").classList.add("show");
 
-  // Play music with promise
+  // play music safely
   const music = document.getElementById("music");
   music.play().catch(e => console.log("Audio play error:", e));
-
-  // Start typing name & message
-  typeName();
-  typeMessage();
-}
-
-// 🎉 Name typing
-let nameText = "🎉 Happy Birthday Rahit 🎉";
-let i = 0;
-function typeName() {
-  if (i < nameText.length) {
-    document.getElementById("name").innerHTML += nameText.charAt(i);
-    i++;
-    setTimeout(typeName, 80);
-  }
-}
-
-// ❤️ Birthday message typing
-let msg = `Dear Friend ❤️
-
-Zindagi me kuch log dil ke bahut kareeb ho jaate hain,
-Tu unme se ek hai 🙂
-
-Har din khushiyon se bhara rahe,
-Aur tera har sapna pura ho ✨
-
-Chahe baat ho ya na ho,
-Par meri dua hamesha tere saath rahe 🙏
-
-Tu hamesha muskurata rahe 😊
-
-🎂 Happy Birthday Rahit 🎉`;
-
-let j = 0;
-function typeMessage() {
-  function type() {
-    if (j < msg.length) {
-      document.getElementById("message").innerHTML += msg.charAt(j);
-      j++;
-
-      // Play short typing sound without blocking
-      let sound = document.getElementById("typeSound").cloneNode();
-      sound.play();
-
-      setTimeout(type, 30);
-    }
-  }
-  type();
 }
 </script>
 
