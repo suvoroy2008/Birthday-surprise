@@ -56,8 +56,9 @@ Muskurata rahe tu hamesha 😊<br><br>
 🎂 Happy Birthday Rahit 🎉
 </div>
 
-<!-- Music -->
+<!-- Happy Birthday Music -->
 <audio id="music" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
+<!-- You can replace above src with a Happy Birthday mp3 link -->
 
 <script>
 function openGift() {
@@ -73,7 +74,7 @@ function openGift() {
   setTimeout(()=>{
     gift.style.display="none";
 
-    // Show sections one by one with delay
+    // Show sections one by one
     name.classList.add("show");
     setTimeout(()=>{ cake.classList.add("show"); }, 800);
     setTimeout(()=>{ message.classList.add("show"); }, 1600);
@@ -81,7 +82,8 @@ function openGift() {
   }, 500);
 
   // Play music
-  document.getElementById("music").play().catch(e=>console.log("Audio error", e));
+  const music = document.getElementById("music");
+  music.play().catch(e=>console.log("Audio error", e));
 }
 </script>
 </body>
