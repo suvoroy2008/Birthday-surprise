@@ -1,143 +1,133 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+<!-- ✅ Emoji Fix -->
 <meta charset="UTF-8">
-<title>Birthday Surprise 🎉</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Happy Birthday 🎉</title>
 
 <style>
-body {
-  margin:0;
+body{
   text-align:center;
-  background: radial-gradient(circle, #000428, #004e92);
+  background: linear-gradient(120deg, #000428, #004e92);
   color:white;
-  font-family:Arial;
+
+  /* ✅ Emoji Support Font */
+  font-family: Arial, "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
 }
 
 /* 🎁 Gift */
-#gift {
+#gift{
   font-size:80px;
   margin-top:100px;
   cursor:pointer;
   animation:bounce 1s infinite;
 }
-@keyframes bounce {
+@keyframes bounce{
   50%{transform:translateY(-20px);}
 }
 
-/* Sections */
-.section {
+/* Main */
+#main{
   display:none;
-  margin-top:20px;
-  animation:fade 1s;
-}
-@keyframes fade {
-  from{opacity:0;}
-  to{opacity:1;}
 }
 
-/* Slideshow */
-#slider img {
-  width:250px;
+/* 📸 Photo */
+img{
+  width:260px;
   border-radius:20px;
   margin-top:20px;
+  box-shadow:0 0 20px cyan;
+  transition:0.5s;
 }
 
-/* Fireworks */
-.firework {
-  position:fixed;
-  width:5px;
-  height:5px;
-  background:white;
-  animation:explode 1s ease-out infinite;
-}
-@keyframes explode {
-  0%{transform:scale(1);}
-  100%{transform:scale(20); opacity:0;}
+/* ❤️ Message */
+p{
+  font-size:20px;
+  margin:20px;
+  line-height:1.6;
 }
 </style>
 
 </head>
+
 <body>
 
 <h1>Click the Gift 🎁</h1>
 
 <div id="gift" onclick="openGift()">🎁</div>
 
-<div id="main" class="section">
+<div id="main">
 
 <h1>🎉 Happy Birthday Rahit 🎉</h1>
 
-<h2 id="cake" onclick="blowCandle()">🎂🕯️ Click candle to blow 🕯️</h2>
+<img id="photo" src="https://i.ibb.co/spTTKr00/photo1.jpg">
 
-<div id="message">
-Dear Friend ❤️<br><br>
-Tu meri life ka ek special part hai 🙂<br>
-Teri smile hamesha bani rahe 😊<br>
-Har sapna tera pura ho ✨<br><br>
-🎂 Happy Birthday 🎉
-</div>
+<p id="msg"></p>
 
-<!-- 📸 Slideshow -->
-<div id="slider">
-<img id="slide" src="IMG-20231008-WA0012.jpg">
-</div>
-
-<br>
-
-<!-- 🎵 Music Button -->
 <button onclick="playMusic()">▶️ Play Music 🎵</button>
 
 </div>
 
-<!-- 🎵 Music -->
-<audio id="music" src="music.mp3" loop></audio>
+<audio id="music" src="https://cdn.pixabay.com/audio/2022/10/25/audio_946b6f3f4e.mp3"></audio>
 
 <script>
 
+// 📸 Image Links
+let images = [
+"https://i.ibb.co/spTTKr00/photo1.jpg",
+"https://i.ibb.co/YF0B5rvf/photo2.jpg",
+"https://i.ibb.co/FqwMbK3Q/photo3.jpg",
+"https://i.ibb.co/h12xh6SW/photo4.jpg"
+];
+
+// 🎁 Open Gift
 function openGift(){
   document.getElementById("gift").style.display="none";
   document.getElementById("main").style.display="block";
-  startFireworks();
   startSlideshow();
+  typeMessage();
 }
 
-// 🎂 Candle
-function blowCandle(){
-  document.getElementById("cake").innerHTML="🎂✨ Candles blown!";
+// 📸 Slideshow
+let i=0;
+function startSlideshow(){
+  setInterval(()=>{
+    i=(i+1)%images.length;
+    document.getElementById("photo").src=images[i];
+  },2000);
+}
+
+// ❤️ Typing Message
+let text = `Dear Friend ❤️
+
+Zindagi me kuch log dil ke bahut kareeb ho jaate hain,
+aur tu unme se ek hai 🙂
+
+Har din tere liye khushiyon se bhara ho,
+aur tera har sapna zarur pura ho ✨
+
+Tu hamesha muskurata rahe 😊
+
+🎂 Happy Birthday Rahit 🎉`;
+
+let j=0;
+function typeMessage(){
+  function type(){
+    if(j<text.length){
+      document.getElementById("msg").innerHTML += text.charAt(j);
+      j++;
+      setTimeout(type,30);
+    }
+  }
+  type();
 }
 
 // 🎵 Music
 function playMusic(){
   document.getElementById("music").play();
-}
-
-// ✅ FIXED IMAGES (tumhare folder ke hisaab se)
-let images = [
-"IMG-20250920_203308.jpg",
-"IMG-20221118-WA0000.jpg",
-"IMG-20231008-WA0012.jpg",
-"IMG-20250615-WA0000.jpg",
-"file_00000000f3fc71fabad60a9fab0c04b6.png"
-];
-
-let i=0;
-function startSlideshow(){
-  setInterval(()=>{
-    i=(i+1)%images.length;
-    document.getElementById("slide").src=images[i];
-  },2000);
-}
-
-// 🎆 Fireworks
-function startFireworks(){
-  setInterval(()=>{
-    let fw=document.createElement("div");
-    fw.className="firework";
-    fw.style.top=Math.random()*100+"%";
-    fw.style.left=Math.random()*100+"%";
-    document.body.appendChild(fw);
-    setTimeout(()=>fw.remove(),1000);
-  },300);
 }
 
 </script>
