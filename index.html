@@ -6,8 +6,11 @@
 <style>
 body {
   margin:0; padding:0; text-align:center;
-  background:black; color:white; font-family:Arial, sans-serif;
+  background: linear-gradient(120deg, #000428, #004e92);
+  font-family: Arial, sans-serif;
   overflow-x:hidden;
+  color: white;
+  position: relative;
 }
 
 /* ⭐ Stars */
@@ -20,6 +23,17 @@ body {
 }
 @keyframes twinkle { from{opacity:0.3;} to{opacity:1;} }
 
+/* 🎊 Confetti */
+.confetti {
+  position:absolute; width:10px; height:10px; background:yellow;
+  top:0; left:50%; opacity:0.8;
+  animation:fall 3s linear infinite;
+}
+@keyframes fall {
+  0% {transform:translateY(0) rotate(0deg);}
+  100% {transform:translateY(800px) rotate(360deg);}
+}
+
 /* 🎁 Gift */
 #gift { font-size:80px; cursor:pointer; margin-top:100px; animation:bounce 1s infinite; }
 @keyframes bounce {0%,100%{transform:translateY(0);} 50%{transform:translateY(-20px);} }
@@ -30,23 +44,26 @@ body {
 #name { font-size:40px; color:cyan; text-shadow:0 0 10px cyan,0 0 20px cyan; }
 #cake { font-size:50px; color:orange; }
 #message { font-size:22px; color:lightyellow; max-width:90%; margin:20px auto; line-height:1.6; text-align:center; }
+.show { opacity:1; transform:translateY(0); }
 
-/* Animate class */
-.show {
-  opacity:1;
-  transform:translateY(0);
-}
 </style>
 </head>
 <body>
 
 <div class="stars"></div>
 
+<!-- confetti decorations -->
+<div class="confetti" style="left:10%; background:#ff0;"></div>
+<div class="confetti" style="left:30%; background:#f0f;"></div>
+<div class="confetti" style="left:50%; background:#0ff;"></div>
+<div class="confetti" style="left:70%; background:#ff6347;"></div>
+<div class="confetti" style="left:90%; background:#00ff00;"></div>
+
 <h1>Click the Gift 🎁</h1>
 <div id="gift" onclick="openGift()">🎁</div>
 
 <div id="name" class="section">🎉 Happy Birthday Rahit 🎉</div>
-<div id="cake" class="section">🎂🕯️ Make a wish and blow the candles! 🎉</div>
+<div id="cake" class="section">🎂 Make your wish and light up the candles ✨</div>
 <div id="message" class="section">
 Dear Friend ❤️<br><br>
 Zindagi me kuch log dil ke bahut kareeb ho jaate hain,<br>
