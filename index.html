@@ -66,14 +66,14 @@ p{
 
 </div>
 
-<!-- 🎵 AUTO MUSIC -->
-<audio id="music" loop>
-  <source src="https://cdn.pixabay.com/audio/2022/10/25/audio_946b6f3f4e.mp3" type="audio/mpeg">
+<!-- 🎵 FINAL WORKING MUSIC -->
+<audio id="music" preload="auto" loop>
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_5b30f51be6.mp3?filename=happy-birthday-254480.mp3" type="audio/mpeg">
 </audio>
 
 <script>
 
-// 📸 Image links
+// 📸 Images
 let images = [
 "https://i.ibb.co/spTTKr00/photo1.jpg",
 "https://i.ibb.co/YF0B5rvf/photo2.jpg",
@@ -88,12 +88,19 @@ function openGift(){
 
   let music = document.getElementById("music");
 
-  // 🔥 Auto music play
-  music.play().catch(() => {
-    document.body.addEventListener("click", () => {
-      music.play();
-    }, { once: true });
-  });
+  // 🔥 STRONG AUTO PLAY FIX
+  music.muted = false;
+  music.currentTime = 0;
+
+  let playPromise = music.play();
+
+  if (playPromise !== undefined) {
+    playPromise.catch(() => {
+      document.body.addEventListener("click", () => {
+        music.play();
+      }, { once: true });
+    });
+  }
 
   startSlideshow();
   typeMessage();
@@ -108,7 +115,7 @@ function startSlideshow(){
   },2000);
 }
 
-// ❤️ NEW MESSAGE (Typing Effect)
+// ❤️ Message
 let text = `Happy Birthday Rahit 🎂
 
 Dear Friend, zindagi me kuch log dil ke bahut kareeb ho jaate hain… aur tu unme se ek hai ❤️ Shayad ye message unexpected ho, par dil ne aaj bhi tujhe wish karne se nahi roka.
