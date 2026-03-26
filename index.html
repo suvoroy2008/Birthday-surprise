@@ -49,16 +49,10 @@ img{
   box-shadow:0 0 25px cyan;
 }
 
-/* ❤️ Message Box (FIXED) */
-#msgBox{
-  max-height:250px;
-  overflow-y:auto;
-  margin:20px;
-}
-
 /* ❤️ Message */
 p{
   font-size:20px;
+  margin:20px;
   line-height:1.7;
   white-space:pre-line;
 }
@@ -117,10 +111,7 @@ p{
 
 <img id="photo" src="https://i.ibb.co/kVsbjz0b/photo1.jpg">
 
-<!-- ✅ MESSAGE BOX -->
-<div id="msgBox">
-  <p id="msg"></p>
-</div>
+<p id="msg"></p>
 
 </div>
 
@@ -200,8 +191,10 @@ function typeMessage(){
       document.getElementById("msg").innerHTML += text.charAt(j);
       j++;
 
-      let box = document.getElementById("msgBox");
-      box.scrollTop = box.scrollHeight;
+      window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: "smooth"
+      });
 
       setTimeout(type,22);
     } else {
