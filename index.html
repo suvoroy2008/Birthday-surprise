@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -9,16 +8,18 @@
 
 <style>
 body{
+  margin:0;
   text-align:center;
   background: linear-gradient(120deg, #000428, #004e92);
   color:white;
   font-family: Arial, "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+  overflow:hidden;
 }
 
 /* 🎁 Gift */
 #gift{
   font-size:80px;
-  margin-top:100px;
+  margin-top:120px;
   cursor:pointer;
   animation:bounce 1s infinite;
 }
@@ -29,6 +30,11 @@ body{
 /* Main */
 #main{
   display:none;
+  animation:fadeIn 1.5s ease;
+}
+@keyframes fadeIn{
+  from{opacity:0;}
+  to{opacity:1;}
 }
 
 /* 📸 Photo */
@@ -36,7 +42,7 @@ img{
   width:260px;
   border-radius:20px;
   margin-top:20px;
-  box-shadow:0 0 20px cyan;
+  box-shadow:0 0 25px cyan;
 }
 
 /* ❤️ Message */
@@ -46,8 +52,26 @@ p{
   line-height:1.7;
   white-space:pre-line;
 }
-</style>
 
+/* 💖 Hearts */
+.heart{
+  position:fixed;
+  bottom:-10px;
+  animation:floatUp linear forwards;
+  opacity:0.8;
+}
+
+@keyframes floatUp{
+  from{
+    transform:translateY(0) scale(1);
+    opacity:0.8;
+  }
+  to{
+    transform:translateY(-110vh) scale(1.6);
+    opacity:0;
+  }
+}
+</style>
 </head>
 
 <body>
@@ -57,23 +81,19 @@ p{
 <div id="gift" onclick="openGift()">🎁</div>
 
 <div id="main">
-
 <h1>🎉 Happy Birthday Rahit 🎂</h1>
-
 <img id="photo" src="https://i.ibb.co/kVsbjz0b/photo1.jpg">
-
 <p id="msg"></p>
-
 </div>
 
 <!-- 🎵 MUSIC -->
 <audio id="music" preload="auto" loop>
-  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_5b30f51be6.mp3?filename=happy-birthday-254480.mp3" type="audio/mpeg">
+  <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_5b30f51be6.mp3" type="audio/mpeg">
 </audio>
 
 <script>
 
-// 📸 Images (UPDATED)
+// 📸 Images
 let images = [
 "https://i.ibb.co/kVsbjz0b/photo1.jpg",
 "https://i.ibb.co/93g472H1/photo2.jpg",
@@ -84,15 +104,20 @@ let images = [
 "https://i.ibb.co/BHvtDP1Q/photo7.jpg"
 ];
 
-// 🎁 Gift click
+// 🎁 Open Gift
 function openGift(){
   document.getElementById("gift").style.display="none";
   document.getElementById("main").style.display="block";
 
-  let music = document.getElementById("music");
+  startMusic();
+  startSlideshow();
+  typeMessage();
+  startHearts();
+}
 
-  music.muted = false;
-  music.currentTime = 0;
+// 🎵 Music
+function startMusic(){
+  let music = document.getElementById("music");
 
   let playPromise = music.play();
 
@@ -103,9 +128,6 @@ function openGift(){
       }, { once: true });
     });
   }
-
-  startSlideshow();
-  typeMessage();
 }
 
 // 📸 Slideshow
@@ -120,11 +142,13 @@ function startSlideshow(){
 // ❤️ Message
 let text = `Happy Birthday Rahit 🎂
 
-Dear Friend, zindagi me kuch log dil ke bahut kareeb ho jaate hain… aur tu unme se ek hai ❤️ Shayad ye message unexpected ho, par dil ne aaj bhi tujhe wish karne se nahi roka.
+Dear Friend, zindagi me kuch log dil ke bahut kareeb ho jaate hain… aur tu unme se ek hai ❤️
 
-Tu sirf dost nahi tha, meri aadat jaisa tha… isliye aaj bhi sab thoda adhura lagta hai. Jo bhi hua uska dukh hai, par humari yaadein usse zyada important hain 🙂
+Shayad ye message unexpected ho, par dil ne aaj bhi tujhe wish karne se nahi roka.
 
-Har din tere liye khushiyon se bhara ho, tera har sapna pura ho… tu hamesha muskurata rahe ✨ Agar kabhi mauka mile, to main phir se wahi dosti jeena chahunga.
+Tu sirf dost nahi tha, meri aadat jaisa tha… isliye aaj bhi sab thoda adhura lagta hai.
+
+Har din tere liye khushiyon se bhara ho, tera har sapna pura ho… tu hamesha muskurata rahe ✨
 
 Happy Birthday ❤️`;
 
@@ -134,10 +158,29 @@ function typeMessage(){
     if(j<text.length){
       document.getElementById("msg").innerHTML += text.charAt(j);
       j++;
-      setTimeout(type,25);
+      setTimeout(type,22);
     }
   }
   type();
+}
+
+// 💖 Hearts
+function startHearts(){
+  setInterval(()=>{
+    let heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "💖";
+
+    heart.style.left = Math.random()*100 + "vw";
+    heart.style.fontSize = (15 + Math.random()*30) + "px";
+    heart.style.animationDuration = (4 + Math.random()*3) + "s";
+
+    document.body.appendChild(heart);
+
+    setTimeout(()=>{
+      heart.remove();
+    },7000);
+  },250);
 }
 
 </script>
